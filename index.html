@@ -7,44 +7,36 @@
 <meta name="description" content="Practica planes de Relaciones Públicas con 5 casos de fácil a complejo y un coach IA que te acompaña.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F3F4FA; --card:#FFFFFF; --ink:#181C4F; --ink-2:#4A4F86; --line:#D9DBEE;
-  --cobalt:#2E3BEA; --marker:#FFD23F; --mint:#2BD49A; --rose:#FF5C7A;
-  --shadow:0 2px 0 var(--ink);
-}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --paper:#12143A; --card:#1C1F52; --ink:#ECEEFF; --ink-2:#A9ADE0; --line:#33377A;
-  --cobalt:#7D86FF; --marker:#FFD23F; --mint:#3FE3A9; --rose:#FF7B93; --shadow:0 2px 0 #000;
-}}
-:root[data-theme="dark"]{
-  --paper:#12143A; --card:#1C1F52; --ink:#ECEEFF; --ink-2:#A9ADE0; --line:#33377A;
-  --cobalt:#7D86FF; --marker:#FFD23F; --mint:#3FE3A9; --rose:#FF7B93; --shadow:0 2px 0 #000;
+  --paper:#FFFFFF; --card:#FFFFFF; --ink:#1F2328; --ink-2:#6B7280; --line:#E8E8EC;
+  --cobalt:#3B5BDB; --marker:#F4F6FB; --mint:#2F9E6E; --rose:#E5484D;
+  --shadow:none;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--paper);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif;min-height:100vh}
-h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;line-height:1.05;margin:0}
+body{background:var(--paper);color:var(--ink);font:15.5px/1.6 Figtree,system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:Figtree,sans-serif;font-weight:700;line-height:1.15;margin:0;letter-spacing:-.01em}
 button,input,textarea,select{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 .mark{background:linear-gradient(transparent 55%,var(--marker) 55%,var(--marker) 90%,transparent 90%);padding:0 .1em}
 
 /* layout */
 .app{display:grid;grid-template-columns:270px minmax(0,1fr) 360px;min-height:100vh}
-aside.cases{border-right:2px solid var(--ink);padding:24px 18px;position:sticky;top:0;height:100vh;overflow:auto}
+aside.cases{border-right:1px solid var(--line);padding:24px 18px;position:sticky;top:0;height:100vh;overflow:auto}
 main{padding:28px clamp(16px,3vw,44px) 80px;min-width:0}
-aside.coach{border-left:2px solid var(--ink);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;background:var(--card)}
+aside.coach{border-left:1px solid var(--line);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;background:var(--card)}
 
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
 .brand svg{flex:none}
-.brand b{font-family:"Bricolage Grotesque";font-size:1.15rem;line-height:1.05}
+.brand b{font-size:1rem;line-height:1.05}
 .ladder{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .ladder button{width:100%;text-align:left;background:none;border:2px solid transparent;border-radius:14px;padding:10px 12px;cursor:pointer;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center}
 .ladder button:hover{border-color:var(--line)}
-.ladder button[aria-current="true"]{border-color:var(--ink);background:var(--card);box-shadow:var(--shadow)}
-.step{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:"Bricolage Grotesque";font-weight:800;border:2px solid var(--ink);background:var(--paper)}
-.done .step{background:var(--mint);color:#0E2B22}
+.ladder button[aria-current="true"]{border-color:var(--line);background:#F7F8FA}
+.step{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9rem;border:1px solid var(--line);background:#fff;color:var(--ink-2)}
+.done .step{background:var(--mint);border-color:var(--mint);color:#fff}
 .ladder small{display:block;color:var(--ink-2);font-size:.8rem}
 .ladder strong{display:block;font-size:.95rem;line-height:1.2}
 .lvl{display:flex;gap:3px;margin-top:4px}
@@ -54,24 +46,24 @@ aside.coach{border-left:2px solid var(--ink);position:sticky;top:0;height:100vh;
 .side-foot button{background:none;border:0;color:var(--cobalt);text-decoration:underline;cursor:pointer;padding:0}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:22px}
-.hero h1{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:22px}
+.hero h1{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;letter-spacing:-.02em;max-width:22ch}
 .hero .client{color:var(--ink-2);font-weight:600;margin-bottom:8px}
 .ring{position:relative;width:118px;height:118px}
 .ring svg{transform:rotate(-90deg)}
-.ring span{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.7rem;line-height:1}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:700;font-size:1.5rem;line-height:1}
 .ring span small{display:block;font-family:Figtree;font-weight:500;font-size:.7rem;color:var(--ink-2)}
 .brief{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;margin:22px 0 8px}
 .brief p{margin:0 0 10px;max-width:68ch}
-.challenge{background:var(--marker);color:#181C4F;border:2px solid var(--ink);border-radius:18px 18px 18px 4px;padding:16px 18px;box-shadow:var(--shadow)}
+.challenge{background:#F7F8FA;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
 .challenge h3{font-size:1.05rem;margin-bottom:6px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.chip{border:1.5px solid var(--ink);border-radius:99px;padding:2px 10px;font-size:.8rem;font-weight:600;background:var(--card)}
+.chip{border:1px solid var(--line);color:var(--ink-2);border-radius:99px;padding:2px 10px;font-size:.8rem;font-weight:600;background:var(--card)}
 
 /* tabs */
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:26px 0 18px;position:sticky;top:0;background:var(--paper);padding:10px 0;z-index:5}
-.tabs button{border:2px solid var(--ink);background:var(--card);border-radius:99px;padding:7px 15px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
-.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.tabs button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:7px 15px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .tabs .dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
 .tabs .dot.ok{background:var(--mint)}
 .panel{display:none}
@@ -82,61 +74,62 @@ aside.coach{border-left:2px solid var(--ink);position:sticky;top:0;height:100vh;
 
 /* inputs */
 .smart-list{display:flex;flex-direction:column;gap:12px}
-.smart{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:12px 14px}
+.smart{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
 .smart textarea{width:100%;border:0;background:transparent;resize:vertical;min-height:54px;outline:none}
 .letters{display:flex;gap:5px;margin-top:6px}
-.letters b{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-family:"Bricolage Grotesque";font-size:.85rem;border:1.5px solid var(--line);color:var(--ink-2)}
-.letters b.ok{background:var(--mint);border-color:var(--mint);color:#0E2B22}
-.grid-wrap{overflow-x:auto;border:2px solid var(--ink);border-radius:16px;background:var(--card)}
+.letters b{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:.8rem;font-weight:700;border:1px solid var(--line);color:var(--ink-2)}
+.letters b.ok{background:var(--mint);border-color:var(--mint);color:#fff}
+.grid-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
 table{border-collapse:collapse;width:100%;min-width:760px}
-th{font-family:"Bricolage Grotesque";font-weight:600;text-align:left;padding:10px;font-size:.9rem;border-bottom:2px solid var(--ink);background:var(--paper)}
+th{font-weight:600;text-align:left;padding:10px;font-size:.85rem;color:var(--ink-2);border-bottom:1px solid var(--line);background:#F7F8FA}
 td{border-top:1px solid var(--line);border-right:1px solid var(--line);vertical-align:top;padding:0}
 td:last-child{border-right:0}
 td textarea,td input{width:100%;border:0;background:transparent;padding:9px 10px;resize:vertical;min-height:62px;outline:none;font-size:.92rem}
-td textarea:focus,td input:focus,.smart:focus-within{background:color-mix(in srgb,var(--marker) 18%,transparent)}
-.eval td:first-child{font-family:"Bricolage Grotesque";font-weight:800;padding:10px;width:120px}
+td textarea:focus,td input:focus,.smart:focus-within{background:#F7F8FA}
+.eval td:first-child{font-weight:700;padding:10px;width:120px}
 .eval td.q{padding:10px;color:var(--ink-2);font-size:.9rem;width:220px}
 .row-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.btn{border:2px solid var(--ink);background:var(--card);border-radius:12px;padding:8px 14px;font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 14px;font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
 .btn:active{transform:translateY(2px);box-shadow:none}
-.btn.primary{background:var(--cobalt);color:#fff;border-color:var(--ink)}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
 .btn.ghost{box-shadow:none}
-.model{margin-top:22px;border:2px dashed var(--ink-2);border-radius:16px;padding:14px 16px;display:none}
+.model{margin-top:22px;border:1px solid var(--line);background:#F7F8FA;border-radius:16px;padding:14px 16px;display:none}
 .model.on{display:block}
 .model h3{font-size:1.05rem;margin-bottom:6px}
 .model ul{margin:0;padding-left:20px}
 
 /* coach */
-.coach-head{padding:18px 18px 12px;border-bottom:2px solid var(--ink);display:flex;gap:12px;align-items:center}
-.avatar{width:44px;height:44px;border-radius:14px;background:var(--cobalt);display:grid;place-items:center;border:2px solid var(--ink);flex:none}
+.coach-head{padding:18px 18px 12px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center}
+.avatar{width:40px;height:40px;border-radius:12px;background:var(--ink);display:grid;place-items:center;flex:none}
 .coach-head h2{font-size:1.15rem}
 .coach-head p{margin:0;font-size:.8rem;color:var(--ink-2)}
-.mode{margin-left:auto;font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:99px;border:1.5px solid var(--ink);white-space:nowrap}
-.mode.live{background:var(--mint);color:#0E2B22}
+.mode{margin-left:auto;font-size:.72rem;font-weight:600;padding:3px 8px;border-radius:99px;border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.mode.live{background:var(--mint);border-color:var(--mint);color:#fff}
 .msgs{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
 .msg{max-width:92%;padding:10px 13px;border-radius:16px;font-size:.92rem;white-space:pre-wrap}
-.msg.ai{background:var(--paper);border:1.5px solid var(--line);border-bottom-left-radius:4px}
+.msg.ai{background:#F7F8FA;border:1px solid var(--line);border-bottom-left-radius:4px}
 .msg.me{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:4px}
 .msg.ai b{color:var(--cobalt)}
 .typing{opacity:.6;font-style:italic}
 .quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 10px}
-.quick button{border:1.5px solid var(--ink);background:var(--card);border-radius:99px;padding:4px 10px;font-size:.8rem;cursor:pointer}
-.compose{display:flex;gap:8px;padding:12px 16px 16px;border-top:2px solid var(--ink)}
-.compose textarea{flex:1;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;resize:none;height:44px;background:var(--paper)}
+.quick button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px;font-size:.8rem;cursor:pointer}
+.compose{display:flex;gap:8px;padding:12px 16px 16px;border-top:1px solid var(--line)}
+.compose textarea{flex:1;border:1px solid var(--line);border-radius:12px;padding:8px 10px;resize:none;height:44px;background:var(--paper)}
 .settings{padding:0 16px 12px;font-size:.8rem;color:var(--ink-2)}
 .settings summary{cursor:pointer}
+.settings p{margin:0 0 8px}
 .settings input{width:100%;margin-top:6px;border:1.5px solid var(--ink);border-radius:8px;padding:6px 8px;background:var(--paper)}
 .coach-toggle{display:none}
 
 @media (max-width:1180px){
   .app{grid-template-columns:240px minmax(0,1fr)}
-  aside.coach{position:fixed;right:0;top:0;width:min(400px,100%);transform:translateX(100%);transition:transform .25s;z-index:30;box-shadow:-8px 0 0 rgba(24,28,79,.15)}
+  aside.coach{position:fixed;right:0;top:0;width:min(400px,100%);transform:translateX(100%);transition:transform .25s;z-index:30;box-shadow:-12px 0 30px rgba(0,0,0,.08)}
   aside.coach.open{transform:none}
   .coach-toggle{display:flex;position:fixed;right:16px;bottom:16px;z-index:31;align-items:center;gap:8px}
 }
 @media (max-width:760px){
   .app{grid-template-columns:1fr}
-  aside.cases{position:static;height:auto;border-right:0;border-bottom:2px solid var(--ink);padding:16px}
+  aside.cases{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:16px}
   .ladder{flex-direction:row;overflow-x:auto;padding-bottom:4px}
   .ladder li{flex:0 0 200px}
   .side-foot{display:none}
@@ -147,18 +140,19 @@ td textarea:focus,td input:focus,.smart:focus-within{background:color-mix(in srg
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
 <div class="app">
   <aside class="cases" aria-label="Casos">
     <div class="brand">
-      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="var(--marker)" stroke="var(--ink)" stroke-width="2"/><path d="M10 17h5l10-6v18l-10-6h-5z" fill="var(--ink)"/><path d="M28 15c2 1.5 2 8.5 0 10" stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" fill="var(--ink)"/><path d="M10 17h5l10-6v18l-10-6h-5z" fill="#fff"/><path d="M28 15c2 1.5 2 8.5 0 10" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
       <b>Sala de Campaña<br>RR. PP.</b>
     </div>
     <ol class="ladder" id="ladder"></ol>
     <div class="side-foot">
       <p>Tu progreso se guarda en este navegador.</p>
-      <button id="reset">Borrar el caso actual</button> · <button id="theme">Cambiar tema</button>
+      <button id="reset">Borrar el caso actual</button>
     </div>
   </aside>
 
@@ -223,11 +217,10 @@ td textarea:focus,td input:focus,.smart:focus-within{background:color-mix(in srg
     </div>
     <div class="msgs" id="msgs" aria-live="polite"></div>
     <div class="quick" id="quick"></div>
-    <details class="settings">
-      <summary>Conectar IA avanzada (Gemini, gratis)</summary>
-      <p>Sin clave, Vocera usa sus reglas locales. Crea una clave gratis en <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> y pégala aquí. La clave queda solo en este navegador.</p>
-      <input id="apikey" type="password" placeholder="AIza..." autocomplete="off">
-    </details>
+    <div class="settings" id="login">
+      <p id="loginTxt">Inicia sesión para que Vocera responda con Gemini. Es gratis y no necesitas clave.</p>
+      <button class="btn" id="loginBtn" style="width:100%">Iniciar sesión para activar Gemini</button>
+    </div>
     <div class="compose">
       <textarea id="ask" placeholder="Pregúntale algo a Vocera…" aria-label="Mensaje para el coach"></textarea>
       <button class="btn primary" id="send">Enviar</button>
@@ -366,7 +359,7 @@ const KB=[
 [/(ejemplo|ayuda|no se|empez|como empiezo)/,"Arranquemos juntos. Lee el reto y subraya los verbos: cada verbo es un objetivo posible. Luego escribe el primero con la fórmula <b>Verbo + qué + cuánto + cuándo</b> y pídeme revisión."]];
 function localReply(q){const n=N(q);for(const [re,a] of KB)if(re.test(n))return a.replace("{PUB}",C().publicos.join(", "));
   if(/(revisa|revision|como voy|califica|nota)/.test(n))return fullReview();
-  return"Puedo explicarte SMART, estrategia y táctica, públicos, mensajes, canales, indicadores, cronograma, evaluación o crisis. También puedo revisar tu plan: escribe «revisa mi plan».\n\nPara conversar con libertad, conecta la IA avanzada abajo."}
+  return"Puedo explicarte SMART, estrategia y táctica, públicos, mensajes, canales, indicadores, cronograma, evaluación o crisis. También puedo revisar tu plan: escribe «revisa mi plan».\n\nPara conversar con libertad, inicia sesión abajo y activa Gemini."}
 
 /* ---------- Gemini ---------- */
 function planText(){const c=C();return `CASO: ${c.client}. ${c.story.join(" ")} RETO: ${c.reto.replace(/<[^>]+>/g,"")}
@@ -396,15 +389,17 @@ CONOCIMIENTO DE RR. PP. QUE DEBES APLICAR:
 - Modelos útiles: RACE (investigación, acción, comunicación, evaluación), los cuatro modelos de Grunig (el ideal es el bidireccional simétrico), reputación = lo que haces + lo que dices + lo que dicen de ti.
 - Crisis: responder en las primeras 24 h, las 3 R (reconocer, responder, reparar), un solo vocero, nunca decir "sin comentarios", primero comunicación interna, empatía con los afectados, transparencia con las autoridades, y después recuperar la reputación.
 - Contexto colombiano: RSE de las empresas, alcaldías y secretarías, INVIMA, medios regionales, universidades como fuente de voluntarios.`;
-async function gemini(q){const key=$("#apikey").value.trim();
-  const hist=work.chat.slice(-10).map(m=>({role:m.r==="me"?"user":"model",parts:[{text:m.t.replace(/<[^>]+>/g,"")}]}));
-  hist.push({role:"user",parts:[{text:q}]});
-  const ref=C().model;
-  const sys=TRAINING+`\n\nSOLUCIÓN DE REFERENCIA DEL CASO (solo para que tú evalúes; no la copies al estudiante, úsala para orientar): ${JSON.stringify(ref)}\n\nTRABAJO ACTUAL DEL ESTUDIANTE:\n${planText()}`;
-  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`,{method:"POST",headers:{"content-type":"application/json","x-goog-api-key":key},
-    body:JSON.stringify({systemInstruction:{parts:[{text:sys}]},contents:hist,generationConfig:{temperature:0.6,maxOutputTokens:1200,thinkingConfig:{thinkingBudget:0}}})});
-  const d=await res.json();if(!res.ok)throw new Error(d.error?.message||res.status);
-  return (d.candidates?.[0]?.content?.parts||[]).map(p=>p.text||"").join("")||"No obtuve respuesta, intenta de nuevo."}
+let live=false;
+async function gemini(q){
+  const hist=work.chat.slice(-10).map(m=>({role:m.r==="me"?"user":"assistant",content:m.t.replace(/<[^>]+>/g,"")}));
+  const sys=TRAINING+`\n\nSOLUCIÓN DE REFERENCIA DEL CASO (solo para que tú evalúes; no la copies al estudiante, úsala para orientar): ${JSON.stringify(C().model)}\n\nTRABAJO ACTUAL DEL ESTUDIANTE:\n${planText()}`;
+  const r=await puter.ai.chat([{role:"system",content:sys},...hist,{role:"user",content:q}],{model:"gemini-2.5-flash"});
+  const c=r?.message?.content;return (Array.isArray(c)?c.map(x=>x.text||"").join(""):c)||String(r)}
+async function checkLogin(){try{live=!!(window.puter&&puter.auth.isSignedIn())}catch{live=false}
+  if(live){let n="";try{n=(await puter.auth.getUser()).username}catch{}
+    $("#loginTxt").textContent=`Sesión iniciada${n?" como "+n:""}. Vocera responde con Gemini.`;$("#loginBtn").textContent="Cerrar sesión"}
+  else{$("#loginTxt").textContent="Inicia sesión para que Vocera responda con Gemini. Es gratis y no necesitas clave.";$("#loginBtn").textContent="Iniciar sesión para activar Gemini"}
+  setMode()}
 
 /* ---------- render ---------- */
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
@@ -433,24 +428,24 @@ function renderChat(){if(!work.chat.length)work.chat.push({r:"ai",t:`Hola, soy <
   $("#msgs").innerHTML=work.chat.map(m=>`<div class="msg ${m.r}">${m.r==="me"?esc(m.t):m.t}</div>`).join("");$("#msgs").scrollTop=1e9;
   $("#quick").innerHTML=["¿Qué es SMART?","Estrategia vs. táctica","Output, outcome e impacto","¿Cómo voy?"].map(q=>`<button data-q="${q}">${q}</button>`).join("")}
 function say(r,t){work.chat.push({r,t});save();renderChat()}
-async function ask(q){if(!q.trim())return;say("me",q);const key=$("#apikey").value.trim();
-  if(!key){setTimeout(()=>say("ai",localReply(q)),250);return}
+async function ask(q){if(!q.trim())return;say("me",q);
+  if(!live){setTimeout(()=>say("ai",localReply(q)),250);return}
   const el=document.createElement("div");el.className="msg ai typing";el.textContent="Vocera está pensando…";$("#msgs").append(el);$("#msgs").scrollTop=1e9;
-  try{const a=await gemini(q);say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))}catch(e){el.remove();say("ai",`No pude conectar con Gemini (${esc(e.message)}). Revisa tu clave. Mientras tanto, te respondo en modo local:\n\n`+localReply(q))}}
-function setMode(){const live=!!$("#apikey").value.trim();$("#mode").textContent=live?"Gemini conectado":"Modo local";$("#mode").classList.toggle("live",live)}
+  try{const a=await gemini(q);say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))}catch(e){el.remove();say("ai",`No pude conectar con Gemini (${esc(e.message)}). Revisa tu sesión. Mientras tanto, te respondo en modo local:\n\n`+localReply(q))}}
+function setMode(){$("#mode").textContent=live?"Gemini conectado":"Modo local";$("#mode").classList.toggle("live",live)}
 
 /* ---------- events ---------- */
 document.addEventListener("input",e=>{const t=e.target,d=t.dataset;
   if(d.s!==undefined){work.smart[d.s]=t.value;letters(+d.s)}
   else if(d.t){work[d.t][d.r][d.c]=t.value}
   else if(d.e!==undefined){work.eval[d.e]=t.value}
-  else if(t.id==="apikey"){store.set("rrpp-key",t.value);setMode();return}else return;save()});
+  else return;save()});
 document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
   if(d.case!==undefined){cur=+d.case;store.set("rrpp-cur",cur);load();renderCase();window.scrollTo({top:0})}
   else if(d.tab){tab=d.tab;store.set("rrpp-tab",tab);renderTabs()}
   else if(d.add){if(d.add==="smart"){work.smart.push("");renderSmart()}else{work[d.add].push(Array(d.add==="matriz"?7:3).fill(""));renderTable(d.add,d.add==="matriz"?7:3)}save()}
   else if(d.review){say("me",`Revisa mi sección: ${TABS.find(x=>x[0]===d.review)[1]}`);openCoach();
-    if($("#apikey").value.trim())gemini(`Revisa en detalle mi sección "${d.review}" y dame retroalimentación concreta.`).then(a=>say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))).catch(()=>say("ai",review(d.review)));
+    if(live)gemini(`Revisa en detalle mi sección "${d.review}" y dame retroalimentación concreta.`).then(a=>say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))).catch(()=>say("ai",review(d.review)));
     else setTimeout(()=>say("ai",review(d.review)),250)}
   else if(d.q!==undefined)ask(d.q==="¿Cómo voy?"?"revisa mi plan":d.q);
 });
@@ -459,12 +454,11 @@ $("#ask").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.prev
 $("#showModel").onclick=()=>renderModel(!$("#model").classList.contains("on"));
 $("#fullReview").onclick=()=>{openCoach();say("me","Revisa mi plan completo");setTimeout(()=>say("ai",fullReview()),250)};
 $("#reset").onclick=()=>{work=blank(C());save();renderCase()};
-$("#theme").onclick=()=>{const r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store.set("rrpp-theme",r.dataset.theme)};
 function openCoach(){$("#coach").classList.add("open")}
 $("#coachToggle").onclick=()=>{const c=$("#coach");c.classList.toggle("open");$("#coachToggle").textContent=c.classList.contains("open")?"Cerrar coach":"Hablar con Vocera"};
 
-const th=store.get("rrpp-theme",null);if(th)document.documentElement.dataset.theme=th;
-$("#apikey").value=store.get("rrpp-key","");setMode();
+$("#loginBtn").onclick=async()=>{try{if(live){puter.auth.signOut()}else{await puter.auth.signIn()}}catch{}checkLogin()};
+checkLogin();
 load();renderCase();
 </script>
 </body>
