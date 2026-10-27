@@ -224,9 +224,9 @@ td textarea:focus,td input:focus,.smart:focus-within{background:color-mix(in srg
     <div class="msgs" id="msgs" aria-live="polite"></div>
     <div class="quick" id="quick"></div>
     <details class="settings">
-      <summary>Conectar IA avanzada (Claude)</summary>
-      <p>Sin clave, Vocera usa sus reglas locales. Con tu clave de API de Anthropic, responde con Claude. La clave queda solo en este navegador.</p>
-      <input id="apikey" type="password" placeholder="sk-ant-..." autocomplete="off">
+      <summary>Conectar IA avanzada (Gemini, gratis)</summary>
+      <p>Sin clave, Vocera usa sus reglas locales. Crea una clave gratis en <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> y pégala aquí. La clave queda solo en este navegador.</p>
+      <input id="apikey" type="password" placeholder="AIza..." autocomplete="off">
     </details>
     <div class="compose">
       <textarea id="ask" placeholder="Pregúntale algo a Vocera…" aria-label="Mensaje para el coach"></textarea>
@@ -368,18 +368,43 @@ function localReply(q){const n=N(q);for(const [re,a] of KB)if(re.test(n))return 
   if(/(revisa|revision|como voy|califica|nota)/.test(n))return fullReview();
   return"Puedo explicarte SMART, estrategia y táctica, públicos, mensajes, canales, indicadores, cronograma, evaluación o crisis. También puedo revisar tu plan: escribe «revisa mi plan».\n\nPara conversar con libertad, conecta la IA avanzada abajo."}
 
-/* ---------- Claude ---------- */
+/* ---------- Gemini ---------- */
 function planText(){const c=C();return `CASO: ${c.client}. ${c.story.join(" ")} RETO: ${c.reto.replace(/<[^>]+>/g,"")}
 OBJETIVOS SMART: ${work.smart.filter(Boolean).map((t,i)=>`${i+1}) ${t}`).join(" | ")||"(vacío)"}
 MATRIZ: ${work.matriz.filter(r=>r.some(Boolean)).map(r=>r.join(" / ")).join(" || ")||"(vacía)"}
 CRONOGRAMA: ${work.crono.filter(r=>r.some(Boolean)).map(r=>r.join(" / ")).join(" || ")||"(vacío)"}
 EVALUACIÓN: Output: ${work.eval[0]} | Outcome: ${work.eval[1]} | Impacto: ${work.eval[2]}`}
-async function claude(q){const key=$("#apikey").value.trim();
-  const hist=work.chat.slice(-10).map(m=>({role:m.r==="me"?"user":"assistant",content:m.t.replace(/<[^>]+>/g,"")}));
-  hist.push({role:"user",content:q});
-  const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"content-type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-    body:JSON.stringify({model:"claude-opus-5-5",max_tokens:900,system:`Eres Vocera, una coach de Relaciones Públicas para estudiantes universitarios en Colombia. Habla en español, cercana y clara. Tu objetivo es que el estudiante APRENDA: haz preguntas socráticas, señala errores concretos y da pistas antes de dar respuestas completas. Sé breve (máximo unas 150 palabras), sin markdown pesado. Este es el estado actual del trabajo del estudiante:\n${planText()}`,messages:hist})});
-  const d=await res.json();if(!res.ok)throw new Error(d.error?.message||res.status);return d.content.map(b=>b.text||"").join("")}
+const TRAINING=`Eres Vocera, coach experta en Relaciones Públicas para estudiantes universitarios en Colombia. Hablas en español colombiano, cercana, clara y motivadora.
+
+TU MÉTODO (muy importante):
+- Tu meta es que el estudiante APRENDA, no hacerle la tarea. Nunca escribas el plan completo por él.
+- Usa preguntas socráticas, señala errores concretos citando lo que escribió y da pistas o ejemplos parciales.
+- Si pide la respuesta, da un solo ejemplo de una fila u objetivo y pídele que haga el resto.
+- Felicita lo que está bien con precisión, sin exagerar.
+- Responde breve: máximo unas 150 palabras, frases cortas, sin tablas ni markdown pesado (solo **negritas**).
+
+CONOCIMIENTO DE RR. PP. QUE DEBES APLICAR:
+- Objetivos SMART: Específico (verbo de acción + qué), Medible (cifra o %), Alcanzable (realista con los recursos del caso), Relevante (aporta al reto), Temporal (plazo). Fórmula: verbo + qué + cuánto + público + cuándo. Malos verbos: "mejorar", "dar a conocer" sin cifra.
+- Matriz estratégica: Objetivo → Público → Mensaje → Estrategia → Táctica → Canal → Indicador. Cada fila debe leerse como una cadena coherente.
+- Públicos (stakeholders): segmentados, nunca "todo el mundo". Mapa de poder e interés (Mendelow): gestionar de cerca, mantener satisfechos, mantener informados, monitorear. Públicos internos, externos y mixtos.
+- Mensaje clave: una frase corta, memorable, adaptada a cada público, con un beneficio para quien lo escucha.
+- Estrategia = enfoque general (storytelling, relación con medios, relacionamiento institucional, alianzas, activación comunitaria, transparencia). Táctica = acción concreta que se puede poner en el calendario (rueda de prensa, evento, serie de videos, kit de prensa, desayuno, visita). Error típico: confundirlas.
+- Canales: según dónde está el público (TikTok/Instagram jóvenes, LinkedIn y reuniones para empresas, correo y kit de prensa para periodistas, WhatsApp y voz a voz para comunidad, comunicación interna para empleados). Medios propios, ganados, pagados y compartidos (modelo PESO).
+- Indicadores: contables (n.º de notas, % de crecimiento, convenios firmados, asistentes, tono de la cobertura, sentimiento en redes, encuestas de percepción).
+- Cronograma: preparar (diagnóstico, mapa de públicos, kit de prensa) → ejecutar → cerrar (medición e informe). Cada acción con fecha y responsable.
+- Evaluación: Output = lo que produjimos (20 publicaciones, 1 evento). Outcome = el resultado en el público (más conocimiento, participación, inscritos). Impacto = cambio en la relación o percepción (confianza, reputación, vínculo con un público estratégico).
+- Modelos útiles: RACE (investigación, acción, comunicación, evaluación), los cuatro modelos de Grunig (el ideal es el bidireccional simétrico), reputación = lo que haces + lo que dices + lo que dicen de ti.
+- Crisis: responder en las primeras 24 h, las 3 R (reconocer, responder, reparar), un solo vocero, nunca decir "sin comentarios", primero comunicación interna, empatía con los afectados, transparencia con las autoridades, y después recuperar la reputación.
+- Contexto colombiano: RSE de las empresas, alcaldías y secretarías, INVIMA, medios regionales, universidades como fuente de voluntarios.`;
+async function gemini(q){const key=$("#apikey").value.trim();
+  const hist=work.chat.slice(-10).map(m=>({role:m.r==="me"?"user":"model",parts:[{text:m.t.replace(/<[^>]+>/g,"")}]}));
+  hist.push({role:"user",parts:[{text:q}]});
+  const ref=C().model;
+  const sys=TRAINING+`\n\nSOLUCIÓN DE REFERENCIA DEL CASO (solo para que tú evalúes; no la copies al estudiante, úsala para orientar): ${JSON.stringify(ref)}\n\nTRABAJO ACTUAL DEL ESTUDIANTE:\n${planText()}`;
+  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`,{method:"POST",headers:{"content-type":"application/json","x-goog-api-key":key},
+    body:JSON.stringify({systemInstruction:{parts:[{text:sys}]},contents:hist,generationConfig:{temperature:0.6,maxOutputTokens:1200,thinkingConfig:{thinkingBudget:0}}})});
+  const d=await res.json();if(!res.ok)throw new Error(d.error?.message||res.status);
+  return (d.candidates?.[0]?.content?.parts||[]).map(p=>p.text||"").join("")||"No obtuve respuesta, intenta de nuevo."}
 
 /* ---------- render ---------- */
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
@@ -411,8 +436,8 @@ function say(r,t){work.chat.push({r,t});save();renderChat()}
 async function ask(q){if(!q.trim())return;say("me",q);const key=$("#apikey").value.trim();
   if(!key){setTimeout(()=>say("ai",localReply(q)),250);return}
   const el=document.createElement("div");el.className="msg ai typing";el.textContent="Vocera está pensando…";$("#msgs").append(el);$("#msgs").scrollTop=1e9;
-  try{const a=await claude(q);say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))}catch(e){el.remove();say("ai",`No pude conectar con Claude (${esc(e.message)}). Revisa tu clave. Mientras tanto, te respondo en modo local:\n\n`+localReply(q))}}
-function setMode(){const live=!!$("#apikey").value.trim();$("#mode").textContent=live?"Claude conectado":"Modo local";$("#mode").classList.toggle("live",live)}
+  try{const a=await gemini(q);say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))}catch(e){el.remove();say("ai",`No pude conectar con Gemini (${esc(e.message)}). Revisa tu clave. Mientras tanto, te respondo en modo local:\n\n`+localReply(q))}}
+function setMode(){const live=!!$("#apikey").value.trim();$("#mode").textContent=live?"Gemini conectado":"Modo local";$("#mode").classList.toggle("live",live)}
 
 /* ---------- events ---------- */
 document.addEventListener("input",e=>{const t=e.target,d=t.dataset;
@@ -425,7 +450,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
   else if(d.tab){tab=d.tab;store.set("rrpp-tab",tab);renderTabs()}
   else if(d.add){if(d.add==="smart"){work.smart.push("");renderSmart()}else{work[d.add].push(Array(d.add==="matriz"?7:3).fill(""));renderTable(d.add,d.add==="matriz"?7:3)}save()}
   else if(d.review){say("me",`Revisa mi sección: ${TABS.find(x=>x[0]===d.review)[1]}`);openCoach();
-    if($("#apikey").value.trim())claude(`Revisa en detalle mi sección "${d.review}" y dame retroalimentación concreta.`).then(a=>say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))).catch(()=>say("ai",review(d.review)));
+    if($("#apikey").value.trim())gemini(`Revisa en detalle mi sección "${d.review}" y dame retroalimentación concreta.`).then(a=>say("ai",esc(a).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"))).catch(()=>say("ai",review(d.review)));
     else setTimeout(()=>say("ai",review(d.review)),250)}
   else if(d.q!==undefined)ask(d.q==="¿Cómo voy?"?"revisa mi plan":d.q);
 });
