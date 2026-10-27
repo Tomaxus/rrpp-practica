@@ -279,8 +279,10 @@ const $=s=>document.querySelector(s);
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 let cur=store.get("rrpp-cur",0), tab=store.get("rrpp-tab","smart"), work={};
 const C=()=>CASES[cur];
-function blank(c){return{smart:Array(c.rows.smart).fill(""),matriz:Array.from({length:c.rows.matriz},()=>Array(7).fill("")),crono:Array.from({length:c.rows.crono},()=>Array(3).fill("")),eval:["","",""],chat:[]}}
-function load(){work=store.get("rrpp-w-"+C().id,null)||blank(C())}
+function blank(c){return{smart:[""],matriz:[Array(7).fill("")],crono:Array.from({length:c.rows.crono},()=>Array(3).fill("")),eval:["","",""],chat:[]}}
+function load(){work=store.get("rrpp-w-"+C().id,null)||blank(C());
+  const trim=(a,empty)=>{while(a.length>1&&empty(a[a.length-1]))a.pop()};
+  trim(work.smart,t=>!t.trim());trim(work.matriz,r=>r.every(v=>!v.trim()))}
 function save(){store.set("rrpp-w-"+C().id,work);progress();renderLadder()}
 
 /* ---------- analysis (local coach brain) ---------- */
